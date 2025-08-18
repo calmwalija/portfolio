@@ -71,6 +71,36 @@ const skillCategories: SkillCategory[] = [
       },
     ],
   },
+  {
+    key: "tooling",
+    title: "Tooling & Practices",
+    skills: [
+      {
+        name: "Git & Collaboration",
+        description: "Branching strategies, code reviews, and release workflows",
+        level: 85,
+        examples: ["GitFlow & trunk-based", "PR reviews & conventions", "Semantic releases"],
+      },
+      {
+        name: "CI/CD",
+        description: "Automated builds, tests, and deployments",
+        level: 75,
+        examples: ["GitHub Actions", "Fastlane", "Caching & artifacts"],
+      },
+      {
+        name: "Auth & IAM (Keycloak)",
+        description: "Identity brokering, SSO, and OAuth2/OIDC flows",
+        level: 80,
+        examples: ["Realm & client configuration", "Roles & permissions", "PKCE & refresh tokens"],
+      },
+      {
+        name: "Testing",
+        description: "Robust test strategy across layers",
+        level: 80,
+        examples: ["Unit & instrumentation", "Snapshot & UI tests", "Mocking & fixtures"],
+      },
+    ],
+  },
 ]
 
 function getSkillBadge(name: string) {
@@ -91,7 +121,50 @@ function getSkillIcon(name: string) {
   if (lower.includes("fhir")) return <LogoFHIR className="h-5 w-5" />
   if (lower.includes("sql") || lower.includes("database")) return <LogoSQL className="h-5 w-5" />
   if (lower.includes("git")) return <GitBranch className="h-4 w-4" />
+  if (lower.includes("keycloak") || lower.includes("oidc") || lower.includes("oauth") || lower.includes("auth")) return <ShieldCheck className="h-4 w-4" />
+  if (lower.includes("ci") || lower.includes("devops")) return <Server className="h-4 w-4" />
+  if (lower.includes("test")) return <ShieldCheck className="h-4 w-4" />
   return <Code2 className="h-4 w-4" />
+}
+
+function CategoryCard({ category, animate }: { category: SkillCategory; animate: boolean }) {
+  const subtitle = category.skills.map((s) => s.name).join(" • ")
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/40">
+      <div className="mb-5 flex items-baseline justify-between">
+        <h3 className="font-serif text-2xl font-bold">{category.title}</h3>
+        <span className="text-xs text-slate-500 line-clamp-1 max-w-[60%] text-right">{subtitle}</span>
+      </div>
+      <div className="space-y-4">
+        {category.skills.map((skill) => (
+          <div key={skill.name} className="rounded-lg border border-slate-100 p-4 dark:border-slate-800/60">
+            <div className="mb-2 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                {getSkillIcon(skill.name)}
+                <h4 className="font-medium">{skill.name}</h4>
+              </div>
+              <div className="flex items-center gap-2">
+                {getSkillBadge(skill.name)}
+                <span className="text-[11px] text-slate-500">{skill.level}%</span>
+              </div>
+            </div>
+            <Progress value={animate ? skill.level : 0} className="h-2" />
+            <p className="mt-2 text-xs text-slate-600 dark:text-slate-300">{skill.description}</p>
+            {skill.examples && (
+              <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {skill.examples.map((ex) => (
+                  <div key={`${skill.name}-${ex}`} className="flex items-start gap-2 text-[11px] text-slate-600 dark:text-slate-400">
+                    <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-500" />
+                    <span>{ex}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export function SkillsSection() {
@@ -131,86 +204,16 @@ export function SkillsSection() {
           </div>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2">
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/40">
-          <div className="mb-5 flex items-baseline justify-between">
-            <h3 className="font-serif text-2xl font-bold">Core engineering</h3>
-            <span className="text-xs text-slate-500">Android • FHIR • Ktor</span>
-          </div>
-            <div className="space-y-4">
-              {skillCategories
-                .find((c) => c.key === "engineering")!
-                .skills.map((skill) => (
-                  <div key={skill.name} className="rounded-lg border border-slate-100 p-4 dark:border-slate-800/60">
-                    <div className="mb-2 flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2">
-                        {getSkillIcon(skill.name)}
-                        <h4 className="font-medium">{skill.name}</h4>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        {getSkillBadge(skill.name)}
-                        <span className="text-[11px] text-slate-500">{skill.level}%</span>
-                      </div>
-                    </div>
-                    <Progress value={animate ? skill.level : 0} className="h-2" />
-                    <p className="mt-2 text-xs text-slate-600 dark:text-slate-300">{skill.description}</p>
-                    {skill.examples && (
-                      <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                        {skill.examples.map((ex) => (
-                          <div key={`${skill.name}-${ex}`} className="flex items-start gap-2 text-[11px] text-slate-600 dark:text-slate-400">
-                            <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-500" />
-                            <span>{ex}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/40">
-            <div className="mb-5 flex items-baseline justify-between">
-              <h3 className="font-serif text-2xl font-bold">Programming languages</h3>
-              <span className="text-xs text-slate-500">Kotlin • SQL</span>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {skillCategories
-                .find((c) => c.key === "languages")!
-                .skills.map((skill) => (
-                  <div key={skill.name} className="group rounded-xl border border-slate-100 p-4 transition-colors hover:border-emerald-600 dark:border-slate-800/60">
-                    <div className="mb-1 flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2">
-                        {getSkillIcon(skill.name)}
-                        <h4 className="font-medium">{skill.name}</h4>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        {getSkillBadge(skill.name)}
-                        <span className="text-[11px] text-slate-500">{skill.level}%</span>
-                      </div>
-                    </div>
-                    <Progress value={animate ? skill.level : 0} className="h-2" />
-                    <p className="mt-2 line-clamp-2 text-xs text-slate-600 dark:text-slate-300">{skill.description}</p>
-                    {skill.examples && (
-                      <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                        {skill.examples.map((ex) => (
-                          <div key={`${skill.name}-${ex}`} className="flex items-start gap-2 text-[11px] text-slate-600 dark:text-slate-400">
-                            <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-500" />
-                            <span>{ex}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-            </div>
-          </div>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {skillCategories.map((category) => (
+            <CategoryCard key={category.key} category={category} animate={animate} />
+          ))}
         </div>
 
         <div className="mt-10 rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900/40">
           <div className="mb-3 text-sm font-medium text-slate-700 dark:text-slate-200">Toolbox</div>
           <div className="flex flex-wrap gap-2">
-            {["Android", "Kotlin", "Ktor", "SQL", "FHIR"].map((name) => (
+            {["Android", "Kotlin", "Ktor", "SQL", "FHIR", "Git", "CI/CD", "Testing"].map((name) => (
               <span
                 key={`chip-${name}`}
                 className="inline-flex items-center gap-1 rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-700 dark:border-slate-700 dark:text-slate-300"
@@ -220,6 +223,9 @@ export function SkillsSection() {
                 {name === "Ktor" && <LogoKtor className="h-4 w-4" />}
                 {name === "SQL" && <LogoSQL className="h-4 w-4" />}
                 {name === "FHIR" && <LogoFHIR className="h-4 w-4" />}
+                {name === "Git" && <GitBranch className="h-4 w-4" />}
+                {name === "CI/CD" && <Server className="h-4 w-4" />}
+                {name === "Testing" && <ShieldCheck className="h-4 w-4" />}
                 {name}
               </span>
             ))}

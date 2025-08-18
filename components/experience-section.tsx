@@ -1,41 +1,28 @@
 const experiences = [
   {
     year: "Sep 2022 - Dec 2024",
-    title: "Lead Application Developer",
+    title: "Software Engineer",
     company: "D-Tree International",
     description:
-      "Served as Lead Application Developer developing Android-based FHIR projects in collaboration with the ONA team from Kenya, driving healthcare technology solutions for digital health interventions.",
+      "Served as a Software Engineer developing Android-based FHIR projects in collaboration with the ONA team from Kenya, driving healthcare technology solutions for digital health interventions.",
     achievements: [
-      "Engineered Android applications for tuberculosis (TB) treatment and patient care",
-      "Led development of insulin management and trauma patient care applications",
       "Collaborated with international teams to deliver scalable healthcare solutions",
       "Implemented FHIR standards for healthcare data interoperability",
     ],
   },
   {
     year: "Jan 2020 - Sep 2022",
-    title: "Software Engineer",
+    title: "Lead Application Developer",
     company: "Global Health Informatics Institute (AppHatchery)",
     description:
       "Developed Android applications for digital health interventions, focusing on healthcare technology solutions that improve patient outcomes and healthcare delivery across Africa.",
     achievements: [
+      "Led development of insulin management and trauma patient care applications",
+      "Engineered Android applications for tuberculosis (TB) treatment and patient care",
       "Built multiple healthcare mobile applications published on Google Play Store",
       "Developed TypeU diabetes education app for Emory University",
       "Created Georgia TB Reference Guide for healthcare workers",
       "Contributed to OpenAMR antimicrobial resistance surveillance system",
-    ],
-  },
-  {
-    year: "2015 - 2020",
-    title: "Education & Skill Development",
-    company: "Daeyang University",
-    description:
-      "Completed Bachelor of Science in Information & Communication Technology while building foundational programming skills and earning industry certifications.",
-    achievements: [
-      "Graduated with BSc in Information & Communication Technology",
-      "Earned Google Certified Associate Android Developer certification",
-      "Completed Developing Android App with Kotlin certification",
-      "Built strong foundation in mobile development and software engineering",
     ],
   },
 ]
@@ -53,7 +40,7 @@ export function ExperienceSection() {
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-600 via-blue-500 to-emerald-600"></div>
+          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--primary)] via-blue-500 to-[var(--primary)]"></div>
 
           <div className="space-y-12">
             {experiences.map((experience, index) => (
@@ -63,14 +50,14 @@ export function ExperienceSection() {
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 {/* Timeline dot */}
-                <div className="absolute left-6 w-4 h-4 bg-emerald-600 rounded-full border-4 border-white shadow-lg"></div>
+                <div className="absolute left-6 w-4 h-4 bg-[var(--primary)] rounded-full border-4 border-white shadow-lg"></div>
 
                 {/* Content card */}
                 <div className="ml-20 bg-slate-50 rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 border border-slate-200">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                     <div>
                       <h3 className="font-serif text-2xl font-bold text-slate-800 mb-1">{experience.title}</h3>
-                      <p className="text-emerald-600 font-medium text-lg">{experience.company}</p>
+                      <p className="text-[var(--primary)] font-medium text-lg">{experience.company}</p>
                     </div>
                     <span className="text-slate-600 font-medium mt-2 md:mt-0">{experience.year}</span>
                   </div>
@@ -82,7 +69,7 @@ export function ExperienceSection() {
                     <ul className="space-y-2">
                       {experience.achievements.map((achievement, achievementIndex) => (
                         <li key={achievementIndex} className="flex items-start text-slate-600 text-sm">
-                          <span className="w-2 h-2 bg-emerald-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                          <span className="w-2 h-2 bg-[var(--primary)] rounded-full mt-2 mr-3 flex-shrink-0"></span>
                           {achievement}
                         </li>
                       ))}

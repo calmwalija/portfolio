@@ -11,7 +11,7 @@ const projects = [
     year: "2022-2024",
     description:
       "Open-source Android application framework for building FHIR-based healthcare applications. Collaborated with ONA team from Kenya to create scalable digital health solutions.",
-    link: "https://github.com/opensrp/fhircore",
+    link: "https://github.com/opensrp/fhircore/tree/mwcore-dev",
     tags: ["Android", "FHIR", "Kotlin", "Healthcare"],
     featured: true,
     type: "github",
@@ -75,8 +75,6 @@ const projects = [
 export function ProjectsSection() {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
 
-  const featuredProject = projects.find((p) => p.featured)
-  const otherProjects = projects.filter((p) => !p.featured)
 
   const getIcon = (type: string) => {
     switch (type) {
@@ -100,67 +98,11 @@ export function ProjectsSection() {
           </p>
         </div>
 
-        {/* Featured Project */}
-        {featuredProject && (
-          <div className="mb-16 animate-fade-in-up">
-            <div
-              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 cursor-pointer"
-              onMouseEnter={() => setHoveredProject(featuredProject.id)}
-              onMouseLeave={() => setHoveredProject(null)}
-            >
-              <div className="md:flex">
-                <div className="md:w-2/3 relative overflow-hidden bg-gradient-to-br from-emerald-50 to-blue-50 flex items-center justify-center min-h-[320px]">
-                  <div className="text-center p-8">
-                    <div className="w-24 h-24 bg-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                      <span className="text-white text-2xl font-bold">FC</span>
-                    </div>
-                    <h3 className="font-serif text-3xl font-bold text-slate-800 mb-2">{featuredProject.title}</h3>
-                    <p className="text-emerald-600 font-medium">Open Source Healthcare Framework</p>
-                  </div>
-                  <div
-                    className={`absolute inset-0 bg-emerald-600 bg-opacity-90 flex items-center justify-center transition-opacity duration-300 ${
-                      hoveredProject === featuredProject.id ? "opacity-100" : "opacity-0"
-                    }`}
-                  >
-                    <div className="text-center text-white">
-                      <h3 className="font-serif text-2xl font-bold mb-2">{featuredProject.title}</h3>
-                      <p className="text-sm opacity-90">
-                        {featuredProject.role} • {featuredProject.year}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="md:w-1/3 p-8 flex flex-col justify-center">
-                  <h3 className="font-serif text-2xl font-bold text-slate-800 mb-2">{featuredProject.title}</h3>
-                  <p className="text-emerald-600 font-medium mb-4">
-                    {featuredProject.role} • {featuredProject.year}
-                  </p>
-                  <p className="text-slate-600 mb-6 leading-relaxed">{featuredProject.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {featuredProject.tags.map((tag) => (
-                      <span key={tag} className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <a
-                    href={featuredProject.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-medium"
-                  >
-                    {getIcon(featuredProject.type)}
-                    View Project
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+  
 
         {/* Other Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {otherProjects.map((project, index) => (
+          {projects.map((project, index) => (
             <div
               key={project.id}
               className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 cursor-pointer animate-fade-in-up"
@@ -168,15 +110,15 @@ export function ProjectsSection() {
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
             >
-              <div className="relative overflow-hidden bg-gradient-to-br from-slate-50 to-emerald-50 flex items-center justify-center h-48">
+              <div className="relative overflow-hidden bg-gradient-to-br from-slate-50 to-[color-mix(in_oklab,var(--primary)_20%,white)] flex items-center justify-center h-48">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-emerald-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <div className="w-16 h-16 bg-[var(--primary)] rounded-xl flex items-center justify-center mx-auto mb-3">
                     <span className="text-white text-lg font-bold">{project.title.substring(0, 2).toUpperCase()}</span>
                   </div>
                   <h3 className="font-serif text-lg font-bold text-slate-800">{project.title}</h3>
                 </div>
                 <div
-                  className={`absolute inset-0 bg-emerald-600 bg-opacity-90 flex items-center justify-center transition-opacity duration-300 ${
+                  className={`absolute inset-0 bg-[var(--primary)] bg-opacity-90 flex items-center justify-center transition-opacity duration-300 ${
                     hoveredProject === project.id ? "opacity-100" : "opacity-0"
                   }`}
                 >
@@ -190,7 +132,7 @@ export function ProjectsSection() {
               </div>
               <div className="p-6">
                 <h3 className="font-serif text-xl font-bold text-slate-800 mb-2">{project.title}</h3>
-                <p className="text-emerald-600 font-medium mb-3">
+                <p className="text-[var(--primary)] font-medium mb-3">
                   {project.role} • {project.year}
                 </p>
                 <p className="text-slate-600 text-sm mb-4 leading-relaxed">{project.description}</p>
@@ -205,7 +147,7 @@ export function ProjectsSection() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 font-medium text-sm"
+                  className="inline-flex items-center gap-2 text-[var(--primary)] hover:opacity-90 font-medium text-sm"
                 >
                   {getIcon(project.type)}
                   View Project

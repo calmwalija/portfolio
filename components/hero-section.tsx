@@ -18,7 +18,7 @@ export function HeroSection() {
             performant experiences that scale in the real world.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a href="#projects" className="inline-flex items-center rounded-lg bg-emerald-600 px-5 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-emerald-700">
+            <a href="#projects" className="inline-flex items-center rounded-lg bg-[var(--primary)] px-5 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:opacity-90">
               View projects
             </a>
             <a href="#contact" className="inline-flex items-center rounded-lg border border-slate-200 px-5 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">
