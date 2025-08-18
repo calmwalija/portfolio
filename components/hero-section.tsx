@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 export function HeroSection() {
   return (
     <section className="relative isolate overflow-hidden">
@@ -31,10 +33,13 @@ export function HeroSection() {
         <div className="relative">
           <div className="relative aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 shadow-2xl backdrop-blur md:ml-auto dark:border-slate-800">
             {/* Replace src with remote image URLs once provided */}
-            <img
+            <Image
               src="/placeholder.jpg"
               alt="Comfort portrait"
-              className="h-full w-full object-cover"
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 384px, 100vw"
+              priority
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
           </div>
