@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 export function HeroSection() {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
   return (
     <section className="relative isolate overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(1200px_600px_at_50%_-20%,theme(colors.emerald.200/.6),transparent),radial-gradient(800px_400px_at_80%_20%,theme(colors.blue.200/.5),transparent)] dark:bg-[radial-gradient(1200px_600px_at_50%_-20%,theme(colors.emerald.600/.25),transparent),radial-gradient(800px_400px_at_80%_20%,theme(colors.blue.600/.2),transparent)]" />
@@ -34,7 +35,7 @@ export function HeroSection() {
           <div className="relative aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 shadow-2xl backdrop-blur md:ml-auto dark:border-slate-800">
             {/* Replace src with remote image URLs once provided */}
             <Image
-              src="/placeholder.jpg"
+              src={`${basePath}/placeholder.jpg`}
               alt="Comfort portrait"
               fill
               className="object-cover"
