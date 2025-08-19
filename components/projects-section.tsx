@@ -7,7 +7,7 @@ const projects = [
   {
     id: 1,
     title: "FHIRCORE",
-    role: "Lead Android Developer",
+    role: "Software Engineer",
     year: "2022-2024",
     description:
       "Open-source Android application framework for building FHIR-based healthcare applications. Collaborated with ONA team from Kenya to create scalable digital health solutions.",
@@ -30,7 +30,7 @@ const projects = [
   {
     id: 3,
     title: "Georgia TB Reference Guide",
-    role: "Mobile Developer",
+    role: "Android Developer",
     year: "2020-2022",
     description:
       "Healthcare reference application for tuberculosis treatment guidelines, supporting healthcare workers in Georgia.",
