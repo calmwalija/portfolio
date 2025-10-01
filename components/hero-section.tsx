@@ -35,7 +35,7 @@ export function HeroSection() {
           <div className="relative aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 shadow-2xl backdrop-blur md:ml-auto dark:border-slate-800">
             {/* Replace src with remote image URLs once provided */}
             <Image
-              src={`${basePath}/placeholder.jpg`}
+              src={`${basePath}/1913ca096e16429a800cda19e5c91ba3.jpg`}
               alt="Comfort portrait"
               fill
               className="object-cover"
