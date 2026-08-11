@@ -29,7 +29,8 @@ jobs:
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
-        run: npm install --legacy-peer-deps --no-audit --no-fund
+        # Include optional native binaries (lightningcss / oxide) required on Linux CI.
+        run: npm ci --legacy-peer-deps --include=optional --no-audit --no-fund
       - name: Build static site
         run: npm run build
       - name: Disable Jekyll
