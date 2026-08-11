@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Menu } from "lucide-react"
+import { BrandMark } from "@/components/brand-mark"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import {
@@ -72,9 +73,12 @@ export function SiteHeader() {
       <div className="container-editorial flex h-16 items-center justify-between">
         <Link
           href="#about"
-          className="font-serif text-lg font-bold tracking-tight text-foreground"
+          className="group flex items-center gap-2.5 font-serif text-lg font-bold tracking-tight text-foreground"
         >
-          Comfort Mwalija
+          <BrandMark className="size-8 rounded-full shadow-sm ring-1 ring-border/60" />
+          <span className="transition-colors group-hover:text-primary">
+            Comfort Mwalija
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">

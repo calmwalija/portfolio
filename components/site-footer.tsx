@@ -1,4 +1,5 @@
 import { ArrowUp, Github, Linkedin, Mail } from "lucide-react"
+import { BrandMark } from "@/components/brand-mark"
 import { Button } from "@/components/ui/button"
 
 export function SiteFooter() {
@@ -7,11 +8,16 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border">
       <div className="container-editorial flex flex-col items-center justify-between gap-6 py-10 sm:flex-row">
-        <div>
-          <p className="font-serif text-sm font-bold text-foreground">Comfort Mwalija</p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            © {year} · Software engineer · Healthtech
-          </p>
+        <div className="flex items-center gap-3">
+          <BrandMark className="size-9 rounded-full shadow-sm ring-1 ring-border/60" />
+          <div>
+            <p className="font-serif text-sm font-bold text-foreground">
+              Comfort Mwalija
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              © {year} · Software engineer · Healthtech
+            </p>
+          </div>
         </div>
 
         <div className="flex items-center gap-3">
