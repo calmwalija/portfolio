@@ -1,114 +1,109 @@
-"use client"
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Github,
+  Linkedin,
+  ArrowUpRight,
+  Music,
+  Volleyball,
+} from "lucide-react"
+import { SectionShell } from "@/components/section-shell"
 
-import type React from "react"
-import { Mail, Phone, MapPin, Github, Linkedin, Heart } from "lucide-react"
+const links = [
+  {
+    icon: Mail,
+    label: "Email",
+    value: "calmwalija@gmail.com",
+    href: "mailto:calmwalija@gmail.com",
+  },
+  {
+    icon: Phone,
+    label: "Phone",
+    value: "+265 993 563 408",
+    href: "tel:+265993563408",
+  },
+  {
+    icon: Github,
+    label: "GitHub",
+    value: "github.com/calmwalija",
+    href: "https://github.com/calmwalija",
+    external: true,
+  },
+  {
+    icon: Linkedin,
+    label: "LinkedIn",
+    value: "linkedin.com/in/calmwalija",
+    href: "https://www.linkedin.com/in/calmwalija",
+    external: true,
+  },
+]
 
 export function ContactSection() {
-
   return (
-    <section id="contact" className="py-20 bg-slate-50">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl md:text-6xl font-bold text-slate-800 mb-6">
-            Let's Build Something Amazing
-          </h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Ready to create healthcare technology that makes a difference? Let's collaborate on your next digital health
-            project.
-          </p>
-        </div>
+    <SectionShell id="contact">
+      <div className="mb-14 md:mb-20">
+        <p className="section-index mb-4" aria-hidden>
+          04
+        </p>
+        <h2 className="display-text max-w-3xl">
+          Let&apos;s build something{" "}
+          <span className="text-primary">meaningful</span>
+        </h2>
+        <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+          Open to freelance, consulting, and full-time roles in digital health.
+          Based in Lilongwe, Malawi — working globally.
+        </p>
+      </div>
 
-        <div className="grid gap-12 items-start">
-          {/* Contact Information */}
-          <div className="animate-fade-in-up">
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <h3 className="font-serif text-2xl font-bold text-slate-800 mb-6">Get In Touch</h3>
-
-              <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-[var(--primary)]" />
-                  <div>
-                    <h4 className="font-medium text-slate-800 mb-1">Email</h4>
-                    <a
-                      href="mailto:calmwalija@gmail.com"
-                      className="text-[var(--primary)] hover:opacity-90 transition-colors duration-300"
-                    >
-                      calmwalija@gmail.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-[var(--primary)]" />
-                  <div>
-                    <h4 className="font-medium text-slate-800 mb-1">Phone</h4>
-                    <div className="space-y-1">
-                      <a
-                        href="tel:+265993563408"
-                        className="block text-[var(--primary)] hover:opacity-90 transition-colors duration-300"
-                      >
-                        +265 993 563 408
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-5 h-5 text-[var(--primary)]" />
-                  <div>
-                    <h4 className="font-medium text-slate-800 mb-1">Location</h4>
-                    <p className="text-slate-600">Lilongwe, Area 18, Malawi</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <Github className="w-5 h-5 text-[var(--primary)]" />
-                  <div>
-                    <h4 className="font-medium text-slate-800 mb-1">GitHub</h4>
-                    <a
-                      href="https://github.com/calmwalija"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[var(--primary)] hover:opacity-90 transition-colors duration-300"
-                    >
-                      github.com/calmwalija
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <Linkedin className="w-5 h-5 text-[var(--primary)]" />
-                  <div>
-                    <h4 className="font-medium text-slate-800 mb-1">LinkedIn</h4>
-                    <a
-                      href="https://www.linkedin.com/in/calmwalija"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[var(--primary)] hover:opacity-90 transition-colors duration-300"
-                    >
-                      linkedin.com/in/calmwalija
-                    </a>
-                  </div>
-                </div>
+      {/* Contact link grid */}
+      <div className="grid gap-3 sm:grid-cols-2">
+        {links.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noopener noreferrer" : undefined}
+            className="group flex items-center justify-between rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary hover:shadow-lg hover:shadow-primary/10"
+          >
+            <div className="flex items-center gap-4">
+              <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                <link.icon className="size-5" />
               </div>
-
-              <div className="mt-8 pt-6 border-t border-slate-200">
-                <div className="flex items-center gap-2 mb-3">
-                  <Heart className="w-4 h-4 text-[var(--primary)]" />
-                  <h4 className="font-medium text-slate-800">Interests</h4>
-                </div>
-                <p className="text-sm text-slate-600 mb-4">
-                  When I'm not coding, you'll find me playing volleyball or listening to music.
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                  {link.label}
                 </p>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  I'm passionate about building healthcare technology that improves lives. Let's discuss how we can work
-                  together to create meaningful digital health solutions.
-                </p>
+                <p className="mt-0.5 font-medium text-foreground">{link.value}</p>
               </div>
             </div>
+            <ArrowUpRight className="size-5 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+          </a>
+        ))}
+      </div>
+
+      {/* Location + interests band */}
+      <div className="mt-6 grid gap-3 md:grid-cols-3">
+        <div className="flex items-center gap-4 rounded-2xl border border-border bg-muted/50 p-6 md:col-span-1">
+          <MapPin className="size-5 shrink-0 text-primary" />
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Location</p>
+            <p className="mt-0.5 text-sm font-medium">Lilongwe, Area 18, Malawi</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-6 rounded-2xl border border-border bg-muted/50 p-6 md:col-span-2">
+          <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Beyond code</p>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Volleyball className="size-4 text-primary" />
+            Volleyball
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Music className="size-4 text-primary" />
+            Music
           </div>
         </div>
       </div>
-    </section>
+    </SectionShell>
   )
 }

@@ -67,6 +67,31 @@ export function LogoSQL({ className = "h-5 w-5", title = "SQL" }: LogoProps) {
   )
 }
 
+export function LogoNextjs({ className = "h-5 w-5", title = "Next.js" }: LogoProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden={!title} role={title ? "img" : undefined} className={className}>
+      {title ? <title>{title}</title> : null}
+      <circle cx="12" cy="12" r="12" fill="#000" />
+      <path d="M9.5 8v8h1.3v-6.1L16 16h1.5V8h-1.3v6.1L11 8H9.5Z" fill="#fff" />
+    </svg>
+  )
+}
+
+export function LogoDjango({ className = "h-5 w-5", title = "Django" }: LogoProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden={!title} role={title ? "img" : undefined} className={className}>
+      {title ? <title>{title}</title> : null}
+      <rect width="24" height="24" rx="4" fill="#092E20" />
+      <path
+        d="M10.6 5h2.7v9.3c-1.4.3-2.4.4-3.3.4-3.1 0-4.7-1.4-4.7-4 0-2.5 1.7-4.1 4.4-4.1.4 0 .7 0 1 .1V5Zm0 3.9c-.3-.1-.5-.1-.8-.1-1.3 0-2.1.8-2.1 2.2 0 1.4.8 2.1 2 2.1.3 0 .5 0 .9-.1V8.9Z"
+        fill="#fff"
+      />
+      <path d="M17.4 8.4v6.7c0 2.3-.2 3.4-.7 4.4-.5.9-1.2 1.5-2.6 2.2L11.9 20c1.3-.6 2-1.3 2.4-2.1.5-1 .6-2.2.6-5.2V8.4h2.5Z" fill="#fff" />
+      <circle cx="16.1" cy="5.6" r="1.4" fill="#fff" />
+    </svg>
+  )
+}
+
 export function LogoFHIR({ className = "h-5 w-5", title = "FHIR" }: LogoProps) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden={!title} role={title ? "img" : undefined} className={className}>

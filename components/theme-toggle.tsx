@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { useTheme } from "next-themes"
 import { Sun, Moon } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export function ThemeToggle() {
   const { theme, setTheme, resolvedTheme } = useTheme()
@@ -12,30 +13,20 @@ export function ThemeToggle() {
     setMounted(true)
   }, [])
 
-  if (!mounted) return null
+  if (!mounted) {
+    return <Button variant="outline" size="icon" disabled aria-label="Toggle theme" />
+  }
 
   const isDark = (resolvedTheme ?? theme) === "dark"
 
   return (
-    <button
+    <Button
+      variant="outline"
+      size="icon"
       aria-label="Toggle theme"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="inline-flex h-9 items-center justify-center rounded-full border border-slate-200 px-3 text-sm text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
     >
-      {isDark ? (
-        <div className="flex items-center gap-2">
-          <Sun className="h-4 w-4" />
-          <span>Light</span>
-        </div>
-      ) : (
-        <div className="flex items-center gap-2">
-          <Moon className="h-4 w-4" />
-          <span>Dark</span>
-        </div>
-      )}
-    </button>
+      {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+    </Button>
   )
 }
-
-
-

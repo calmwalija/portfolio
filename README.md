@@ -1,6 +1,6 @@
 # Portfolio – Next.js 15
 
-Personal portfolio built with Next.js 15, React 19, Tailwind CSS 4, and shadcn/ui-inspired components. Includes dark mode, responsive sections (hero, projects, skills, experience, education, contact), and reusable UI primitives.
+Personal portfolio built with Next.js 15, React 19, Tailwind CSS 4, and shadcn/ui-inspired components. One-page, editorial layout with dark mode — hero, skills, projects, career journey, and contact sections.
 
 ## Tech stack
 - Next.js 15 (App Router)

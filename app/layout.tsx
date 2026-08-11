@@ -1,25 +1,19 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Space_Grotesk, DM_Sans } from "next/font/google"
+import { Outfit } from "next/font/google"
+import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
- 
 
-const spaceGrotesk = Space_Grotesk({
+const outfit = Outfit({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-space-grotesk",
-})
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-dm-sans",
+  variable: "--font-outfit",
 })
 
 export const metadata: Metadata = {
   title: "Comfort Mwalija - Portfolio",
-  description: "Multidisciplinary designer and developer crafting purposeful digital experiences",
-  generator: "v0.app",
+  description:
+    "Software engineer focused on Android and digital health. Building accessible, performant healthtech products.",
 }
 
 export default function RootLayout({
@@ -28,8 +22,16 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${dmSans.variable} antialiased`}>
-      <body className="font-sans">{children}</body>
+    <html
+      lang="en"
+      className={`${outfit.variable} antialiased`}
+      suppressHydrationWarning
+    >
+      <body className="font-sans">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

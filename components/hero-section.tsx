@@ -1,48 +1,80 @@
-import Image from 'next/image'
+import Image from "next/image"
+import Link from "next/link"
+import { ArrowDownRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export function HeroSection() {
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
+
   return (
-    <section className="relative isolate overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(1200px_600px_at_50%_-20%,theme(colors.emerald.200/.6),transparent),radial-gradient(800px_400px_at_80%_20%,theme(colors.blue.200/.5),transparent)] dark:bg-[radial-gradient(1200px_600px_at_50%_-20%,theme(colors.emerald.600/.25),transparent),radial-gradient(800px_400px_at_80%_20%,theme(colors.blue.600/.2),transparent)]" />
-      <div className="mx-auto grid min-h-[80vh] max-w-7xl items-center gap-10 px-6 py-24 lg:grid-cols-2">
-        <div className="max-w-2xl">
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-700 backdrop-blur dark:border-slate-700 dark:text-slate-300">
+    <section id="about" className="relative min-h-[90vh] overflow-hidden border-b border-border">
+      <div className="container-editorial grid min-h-[90vh] items-end gap-12 pb-16 pt-28 lg:grid-cols-12 lg:gap-8 lg:pb-20 lg:pt-32">
+        <div className="lg:col-span-7">
+          <p className="mb-8 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+            <span className="inline-block size-2 rounded-full bg-primary" />
             Available for freelance & consulting
           </p>
-          <h1 className="font-serif text-5xl leading-tight tracking-tight text-slate-900 md:text-6xl dark:text-white">
-            Crafting modern healthtech products for impact
+
+          <h1 className="display-text animate-fade-in-up">
+            Crafting{" "}
+            <span className="text-primary">healthtech</span>
+            <br />
+            products for impact
           </h1>
-          <p className="mt-5 text-lg leading-7 text-slate-600 dark:text-slate-300">
-            I’m Comfort, a software engineer focused on Android and digital health. I design and build accessible,
-            performant experiences that scale in the real world.
+
+          <p className="mt-8 max-w-lg text-lg leading-relaxed text-muted-foreground animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+            I&apos;m Comfort — an Android engineer specializing in mHealth, building
+            production-grade apps in Kotlin and FHIR for healthcare workers worldwide.
+            My work ships to 500+ users annually across multiple countries.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a href="#projects" className="inline-flex items-center rounded-lg bg-[var(--primary)] px-5 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:opacity-90">
-              View projects
-            </a>
-            <a href="#contact" className="inline-flex items-center rounded-lg border border-slate-200 px-5 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">
-              Get in touch
-            </a>
+
+          <div className="mt-10 flex flex-wrap items-center gap-4 animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+            <Button size="lg" asChild className="rounded-full px-8">
+              <Link href="#projects">
+                View projects
+                <ArrowDownRight className="size-4" />
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild className="rounded-full px-8">
+              <Link href="#contact">Get in touch</Link>
+            </Button>
           </div>
-          <div className="mt-10 flex items-center gap-6 text-xs text-slate-600 dark:text-slate-400">
-            <span>Android • Kotlin</span>
-            <span>FHIR • Healthtech</span>
-            <span>UX-minded engineering</span>
-          </div>
+
+          <dl className="mt-16 grid grid-cols-3 gap-6 border-t border-border pt-8 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
+            <div>
+              <dt className="font-serif text-3xl font-bold text-foreground">7+</dt>
+              <dd className="mt-1 text-xs text-muted-foreground">Years experience</dd>
+            </div>
+            <div>
+              <dt className="font-serif text-3xl font-bold text-foreground">10+</dt>
+              <dd className="mt-1 text-xs text-muted-foreground">Products shipped</dd>
+            </div>
+            <div>
+              <dt className="font-serif text-3xl font-bold text-foreground">2</dt>
+              <dd className="mt-1 text-xs text-muted-foreground">Certifications</dd>
+            </div>
+          </dl>
         </div>
-        <div className="relative">
-          <div className="relative aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-slate-200 shadow-2xl backdrop-blur md:ml-auto dark:border-slate-800">
-            {/* Replace src with remote image URLs once provided */}
-            <Image
-              src={`${basePath}/1913ca096e16429a800cda19e5c91ba3.jpg`}
-              alt="Comfort portrait"
-              fill
-              className="object-cover"
-              sizes="(min-width: 1024px) 384px, 100vw"
-              priority
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+
+        <div className="relative lg:col-span-5 lg:col-start-8">
+          <div className="relative animate-fade-in-up" style={{ animationDelay: "0.15s" }}>
+            <div className="absolute -inset-4 rounded-3xl border border-dashed border-primary/30" />
+            <div className="absolute -right-3 -top-3 z-10 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground">
+              Malawi · GMT+2
+            </div>
+            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-muted">
+              <Image
+                src={`${basePath}/1913ca096e16429a800cda19e5c91ba3.jpg`}
+                alt="Comfort portrait"
+                fill
+                className="object-cover grayscale-[20%] transition-all duration-700 hover:grayscale-0"
+                sizes="(min-width: 1024px) 420px, 100vw"
+                priority
+              />
+            </div>
+            <p className="mt-4 text-right text-xs uppercase tracking-widest text-muted-foreground">
+              Android · Kotlin · FHIR
+            </p>
           </div>
         </div>
       </div>

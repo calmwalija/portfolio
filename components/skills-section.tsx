@@ -1,79 +1,77 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { Progress } from "@/components/ui/progress"
-import { Code2, Smartphone, Database, GitBranch, ShieldCheck, Server } from "lucide-react"
-import { LogoAndroid, LogoFHIR, LogoKotlin, LogoKtor, LogoSQL } from "@/components/brand-logos"
+import { useState } from "react"
+import { Code2, GitBranch, ShieldCheck, Server } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { SectionShell } from "@/components/section-shell"
+import { SectionHeader } from "@/components/section-header"
+import { LogoAndroid, LogoDjango, LogoFHIR, LogoKotlin, LogoKtor, LogoNextjs, LogoSQL } from "@/components/brand-logos"
+import { cn } from "@/lib/utils"
 
 type Skill = { name: string; description: string; level: number; examples?: string[] }
-type SkillCategory = { key: string; title: string; skills: Skill[] }
+type SkillCategory = { key: string; title: string; icon: string; skills: Skill[] }
 
 const skillCategories: SkillCategory[] = [
   {
     key: "engineering",
-    title: "Mobile & Backend Development",
+    title: "Mobile & Web",
+    icon: "01",
     skills: [
       {
         name: "Android Development",
         description: "Native Android apps with focus on healthcare solutions",
         level: 95,
-        examples: [
-          "MVVM + Coroutines + Flows",
-          "Jetpack (Navigation, Room, Hilt)",
-          "Play Store releases & CI/CD",
-        ],
+        examples: ["MVVM + Coroutines + Flows", "Jetpack (Navigation, Room, Hilt)", "Play Store releases & CI/CD"],
+      },
+      {
+        name: "Next.js",
+        description: "React framework for full-stack, production web apps",
+        level: 85,
+        examples: ["App Router & Server Components", "Static export & SSR", "Tailwind + shadcn/ui"],
+      },
+      {
+        name: "Django",
+        description: "Python web framework for rapid, secure backend development",
+        level: 75,
+        examples: ["ORM & migrations", "REST APIs", "Admin & auth"],
       },
       {
         name: "FHIR",
         description: "Healthcare data standards and interoperability",
         level: 85,
-        examples: [
-          "Resource modeling & validation",
-          "Offline-first sync strategies",
-          "Terminologies & CodeSystems",
-        ],
+        examples: ["Resource modeling & validation", "Offline-first sync strategies", "Terminologies & CodeSystems"],
       },
       {
         name: "Ktor",
         description: "Kotlin framework for building connected applications",
         level: 75,
-        examples: [
-          "REST APIs & auth middleware",
-          "Client/server with serialization",
-          "Telemetry & structured logging",
-        ],
+        examples: ["REST APIs & auth middleware", "Client/server with serialization", "Telemetry & structured logging"],
       },
     ],
   },
   {
     key: "languages",
-    title: "Programming Languages",
+    title: "Languages",
+    icon: "02",
     skills: [
       {
         name: "Kotlin",
         description: "Primary language for Android development and backend services",
         level: 95,
-        examples: [
-          "Coroutines/Flows & structured concurrency",
-          "Type-safe builders & DSLs",
-          "Testing with JUnit + Kotest",
-        ],
+        examples: ["Coroutines/Flows & structured concurrency", "Type-safe builders & DSLs", "Testing with JUnit + Kotest"],
       },
       {
         name: "SQL",
         description: "Database design, queries, and data management",
         level: 80,
-        examples: [
-          "Schema design & indexing",
-          "Query optimization & EXPLAIN",
-          "Migrations & data integrity",
-        ],
+        examples: ["Schema design & indexing", "Query optimization & EXPLAIN", "Migrations & data integrity"],
       },
     ],
   },
   {
     key: "tooling",
     title: "Tooling & Practices",
+    icon: "03",
     skills: [
       {
         name: "Git & Collaboration",
@@ -85,7 +83,7 @@ const skillCategories: SkillCategory[] = [
         name: "CI/CD",
         description: "Automated builds, tests, and deployments",
         level: 75,
-        examples: ["GitHub Actions"],
+        examples: ["GitHub Actions", "Docker"],
       },
       {
         name: "Auth & IAM (Keycloak)",
@@ -103,135 +101,158 @@ const skillCategories: SkillCategory[] = [
   },
 ]
 
-function getSkillBadge(name: string) {
-  const base = "inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[10px] font-medium"
-  const lower = name.toLowerCase()
-  if (lower.includes("android")) return <span className={`${base} bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300`}>Android</span>
-  if (lower.includes("kotlin") || lower.includes("ktor")) return <span className={`${base} bg-fuchsia-100 text-fuchsia-800 dark:bg-fuchsia-900/30 dark:text-fuchsia-300`}>Kotlin</span>
-  if (lower.includes("sql")) return <span className={`${base} bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300`}>SQL</span>
-  if (lower.includes("fhir")) return <span className={`${base} bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300`}>FHIR</span>
-  return <span className={`${base} bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300`}>Skill</span>
-}
+const marqueeItems = [
+  { name: "Android", icon: <LogoAndroid className="size-5" /> },
+  { name: "Kotlin", icon: <LogoKotlin className="size-5" /> },
+  { name: "Next.js", icon: <LogoNextjs className="size-5" /> },
+  { name: "Django", icon: <LogoDjango className="size-5" /> },
+  { name: "Ktor", icon: <LogoKtor className="size-5" /> },
+  { name: "SQL", icon: <LogoSQL className="size-5" /> },
+  { name: "FHIR", icon: <LogoFHIR className="size-5" /> },
+  { name: "Git", icon: <GitBranch className="size-5" /> },
+  { name: "CI/CD", icon: <Server className="size-5" /> },
+  { name: "Keycloak", icon: <ShieldCheck className="size-5" /> },
+  { name: "Testing", icon: <Code2 className="size-5" /> },
+]
 
 function getSkillIcon(name: string) {
   const lower = name.toLowerCase()
-  if (lower.includes("android")) return <LogoAndroid className="h-5 w-5" />
-  if (lower.includes("kotlin") && !lower.includes("ktor")) return <LogoKotlin className="h-5 w-5" />
-  if (lower.includes("ktor")) return <LogoKtor className="h-5 w-5" />
-  if (lower.includes("fhir")) return <LogoFHIR className="h-5 w-5" />
-  if (lower.includes("sql") || lower.includes("database")) return <LogoSQL className="h-5 w-5" />
-  if (lower.includes("git")) return <GitBranch className="h-4 w-4" />
-  if (lower.includes("keycloak") || lower.includes("oidc") || lower.includes("oauth") || lower.includes("auth")) return <ShieldCheck className="h-4 w-4" />
-  if (lower.includes("ci") || lower.includes("devops")) return <Server className="h-4 w-4" />
-  if (lower.includes("test")) return <ShieldCheck className="h-4 w-4" />
-  return <Code2 className="h-4 w-4" />
-}
-
-function CategoryCard({ category, animate }: { category: SkillCategory; animate: boolean }) {
-  const subtitle = category.skills.map((s) => s.name).join(" • ")
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/40">
-      <div className="mb-5 flex items-baseline justify-between">
-        <h3 className="font-serif text-2xl font-bold">{category.title}</h3>
-        <span className="text-xs text-slate-500 line-clamp-1 max-w-[60%] text-right">{subtitle}</span>
-      </div>
-      <div className="space-y-4">
-        {category.skills.map((skill) => (
-          <div key={skill.name} className="rounded-lg border border-slate-100 p-4 dark:border-slate-800/60">
-            <div className="mb-2 flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2">
-                {getSkillIcon(skill.name)}
-                <h4 className="font-medium">{skill.name}</h4>
-              </div>
-              <div className="flex items-center gap-2">
-                {getSkillBadge(skill.name)}
-                <span className="text-[11px] text-slate-500">{skill.level}%</span>
-              </div>
-            </div>
-            <Progress value={animate ? skill.level : 0} className="h-2" />
-            <p className="mt-2 text-xs text-slate-600 dark:text-slate-300">{skill.description}</p>
-            {skill.examples && (
-              <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                {skill.examples.map((ex) => (
-                  <div key={`${skill.name}-${ex}`} className="flex items-start gap-2 text-[11px] text-slate-600 dark:text-slate-400">
-                    <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emerald-500" />
-                    <span>{ex}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  )
+  if (lower.includes("android")) return <LogoAndroid className="size-8" />
+  if (lower.includes("kotlin") && !lower.includes("ktor")) return <LogoKotlin className="size-8" />
+  if (lower.includes("next")) return <LogoNextjs className="size-8" />
+  if (lower.includes("django")) return <LogoDjango className="size-8" />
+  if (lower.includes("ktor")) return <LogoKtor className="size-8" />
+  if (lower.includes("fhir")) return <LogoFHIR className="size-8" />
+  if (lower.includes("sql")) return <LogoSQL className="size-8" />
+  if (lower.includes("git")) return <GitBranch className="size-8" />
+  if (lower.includes("keycloak") || lower.includes("auth")) return <ShieldCheck className="size-8" />
+  if (lower.includes("ci")) return <Server className="size-8" />
+  return <Code2 className="size-8" />
 }
 
 export function SkillsSection() {
-  const [animate, setAnimate] = useState(false)
+  const [activeCategory, setActiveCategory] = useState(skillCategories[0].key)
+  const [activeSkill, setActiveSkill] = useState(skillCategories[0].skills[0].name)
 
-  useEffect(() => {
-    const id = setTimeout(() => setAnimate(true), 100)
-    return () => clearTimeout(id)
-  }, [])
+  const category = skillCategories.find((c) => c.key === activeCategory)!
+  const skill = category.skills.find((s) => s.name === activeSkill) ?? category.skills[0]
+
+  const selectCategory = (key: string) => {
+    const cat = skillCategories.find((c) => c.key === key)!
+    setActiveCategory(key)
+    setActiveSkill(cat.skills[0].name)
+  }
 
   return (
-    <section id="skills" className="relative py-24">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(900px_400px_at_20%_20%,theme(colors.emerald.100/.6),transparent),radial-gradient(700px_300px_at_80%_10%,theme(colors.blue.100/.4),transparent)] dark:bg-[radial-gradient(900px_400px_at_20%_20%,theme(colors.emerald.700/.15),transparent),radial-gradient(700px_300px_at_80%_10%,theme(colors.blue.700/.12),transparent)]" />
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="mb-10 text-center">
-          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-700 dark:border-slate-700 dark:text-slate-300">
-            Capabilities
-          </span>
-          <h2 className="font-serif text-4xl font-bold tracking-tight md:text-5xl">Skills & toolkit</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-slate-600 dark:text-slate-300">
-            A focused stack across Android and backend to ship end‑to‑end.
-          </p>
-        </div>
+    <SectionShell id="skills">
+      <SectionHeader
+        index="01"
+        eyebrow="Capabilities"
+        title="Skills & toolkit"
+        description="Deep expertise across the Android stack and backend — pick a domain to explore."
+      />
 
-          <div className="mb-8 grid gap-3 text-xs sm:grid-cols-3">
-          <div className="rounded-lg border border-slate-200 bg-white p-3 text-center dark:border-slate-800 dark:bg-slate-900/40">
-            <span className="block font-semibold">7+ years</span>
-            <span className="text-slate-600 dark:text-slate-400">professional experience</span>
-          </div>
-          <div className="rounded-lg border border-slate-200 bg-white p-3 text-center dark:border-slate-800 dark:bg-slate-900/40">
-              <span className="block font-semibold">Android + Kotlin</span>
-              <span className="text-slate-600 dark:text-slate-400">Ktor, SQL, FHIR</span>
-          </div>
-          <div className="rounded-lg border border-slate-200 bg-white p-3 text-center dark:border-slate-800 dark:bg-slate-900/40">
-            <span className="block font-semibold">Certifications</span>
-            <span className="text-slate-600 dark:text-slate-400">Google AAD, Kotlin</span>
-          </div>
-        </div>
-
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {skillCategories.map((category) => (
-            <CategoryCard key={category.key} category={category} animate={animate} />
+      <div className="grid gap-8 lg:grid-cols-12">
+        {/* Category rail */}
+        <div className="flex gap-2 overflow-x-auto pb-2 lg:col-span-3 lg:flex-col lg:overflow-visible lg:pb-0">
+          {skillCategories.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => selectCategory(cat.key)}
+              className={cn(
+                "group flex shrink-0 items-center gap-4 rounded-xl border px-5 py-4 text-left transition-all duration-300",
+                activeCategory === cat.key
+                  ? "border-primary bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                  : "border-border bg-card hover:border-primary/40"
+              )}
+            >
+              <span
+                className={cn(
+                  "font-serif text-2xl font-bold",
+                  activeCategory === cat.key ? "text-primary-foreground/70" : "text-primary/40"
+                )}
+              >
+                {cat.icon}
+              </span>
+              <span className="text-sm font-semibold">{cat.title}</span>
+            </button>
           ))}
         </div>
 
-        <div className="mt-10 rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900/40">
-          <div className="mb-3 text-sm font-medium text-slate-700 dark:text-slate-200">Toolbox</div>
-          <div className="flex flex-wrap gap-2">
-            {["Android", "Kotlin", "Ktor", "SQL", "FHIR", "Git", "CI/CD", "Testing"].map((name) => (
-              <span
-                key={`chip-${name}`}
-                className="inline-flex items-center gap-1 rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-700 dark:border-slate-700 dark:text-slate-300"
+        {/* Skill list */}
+        <div className="lg:col-span-4">
+          <div className="rounded-xl border border-border bg-card">
+            {category.skills.map((s, i) => (
+              <button
+                key={s.name}
+                onClick={() => setActiveSkill(s.name)}
+                className={cn(
+                  "flex w-full items-center justify-between px-5 py-4 text-left transition-colors",
+                  i < category.skills.length - 1 && "border-b border-border",
+                  activeSkill === s.name ? "bg-muted" : "hover:bg-muted/50"
+                )}
               >
-                {name === "Android" && <LogoAndroid className="h-4 w-4" />}
-                {name === "Kotlin" && <LogoKotlin className="h-4 w-4" />}
-                {name === "Ktor" && <LogoKtor className="h-4 w-4" />}
-                {name === "SQL" && <LogoSQL className="h-4 w-4" />}
-                {name === "FHIR" && <LogoFHIR className="h-4 w-4" />}
-                {name === "Git" && <GitBranch className="h-4 w-4" />}
-                {name === "CI/CD" && <Server className="h-4 w-4" />}
-                {name === "Testing" && <ShieldCheck className="h-4 w-4" />}
-                {name}
-              </span>
+                <span className="font-medium">{s.name}</span>
+                <span
+                  className={cn(
+                    "font-serif text-lg font-bold",
+                    activeSkill === s.name ? "text-primary" : "text-muted-foreground"
+                  )}
+                >
+                  {s.level}
+                </span>
+              </button>
             ))}
           </div>
         </div>
+
+        {/* Spotlight panel */}
+        <div className="lg:col-span-5">
+          <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-8">
+            <div className="mb-6 flex items-start justify-between">
+              <div className="rounded-xl border border-border bg-muted p-4">
+                {getSkillIcon(skill.name)}
+              </div>
+              <div className="text-right">
+                <p className="font-serif text-5xl font-bold text-primary">{skill.level}%</p>
+                <p className="text-xs uppercase tracking-widest text-muted-foreground">Proficiency</p>
+              </div>
+            </div>
+            <h3 className="font-serif text-2xl font-bold">{skill.name}</h3>
+            <p className="mt-3 text-muted-foreground leading-relaxed">{skill.description}</p>
+            {skill.examples && (
+              <div className="mt-6 flex flex-wrap gap-2">
+                {skill.examples.map((ex) => (
+                  <Badge key={ex} variant="outline" className="rounded-full px-3 py-1">
+                    {ex}
+                  </Badge>
+                ))}
+              </div>
+            )}
+            <div className="mt-8 h-1.5 overflow-hidden rounded-full bg-muted">
+              <div
+                className="h-full rounded-full bg-primary transition-all duration-700 ease-out"
+                style={{ width: `${skill.level}%` }}
+              />
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+
+      {/* Marquee */}
+      <div className="relative mt-16 overflow-hidden border-y border-border py-5">
+        <div className="marquee-track gap-10">
+          {[...marqueeItems, ...marqueeItems].map((item, i) => (
+            <span
+              key={`${item.name}-${i}`}
+              className="flex shrink-0 items-center gap-2.5 px-4 text-sm font-medium text-muted-foreground"
+            >
+              {item.icon}
+              {item.name}
+            </span>
+          ))}
+        </div>
+      </div>
+    </SectionShell>
   )
 }
